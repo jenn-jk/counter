@@ -1,8 +1,16 @@
+import 'package:counter/providers/CounterModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) {
+        return CounterModel();
+      },
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -31,11 +39,35 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Counter"),
-        ElevatedButton(onPressed: () {}, child: Text("Increment")),
-      ],
+    return Consumer<CounterModel>(
+      builder: (BuildContext context, CounterModel value, Widget? child) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(25),
+              child: Column(
+                children: [
+                  Text("Count: ${value.count}", style: TextStyle(fontSize: 30)),
+                  ElevatedButton(
+                    onPressed: () {
+                      value.increment();
+                    },
+                    child: Text("Increment"),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      value.reset();
+                    },
+                    child: Text("Reset"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
