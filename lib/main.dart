@@ -39,36 +39,33 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
   @override
   Widget build(BuildContext context) {
-    // consumer variant
-    return Consumer<CounterModel>(
-      builder: (BuildContext context, CounterModel value, Widget? child) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(25),
-              child: Column(
-                children: [
-                  Text("Count: ${value.count}", style: TextStyle(fontSize: 30)),
-                  ElevatedButton(
-                    onPressed: () {
-                      value.increment();
-                    },
-                    child: Text("Increment"),
-                  ),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      value.reset();
-                    },
-                    child: Text("Reset"),
-                  ),
-                ],
+    // provider of variant
+    final count = Provider.of<CounterModel>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(25),
+          child: Column(
+            children: [
+              Text("Count: ${count.count}", style: TextStyle(fontSize: 30)),
+              ElevatedButton(
+                onPressed: () {
+                  count.increment();
+                },
+                child: Text("Increment"),
               ),
-            ),
-          ],
-        );
-      },
+
+              ElevatedButton(
+                onPressed: () {
+                  count.reset();
+                },
+                child: Text("Reset"),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
