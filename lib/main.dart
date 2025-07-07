@@ -39,6 +39,7 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
   @override
   Widget build(BuildContext context) {
+    // consumer variant
     return Consumer<CounterModel>(
       builder: (BuildContext context, CounterModel value, Widget? child) {
         return Column(
